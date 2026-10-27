@@ -86,9 +86,9 @@
 ######################################Docker################################
 name: CICD
 
-on:
-  push:
-    branches: [cicd-docker-ec2]
+on: workflow_dispatch
+  # push:
+  #   branches: [cicd-docker-ec2]
 
 jobs:
   build:
