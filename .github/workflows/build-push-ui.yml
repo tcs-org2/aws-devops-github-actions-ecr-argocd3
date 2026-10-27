@@ -99,16 +99,16 @@ jobs:
       - name: Login to docker hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }} 
       - name: Build docker image
-        run: docker build -t integrationninjas/nodejs-app .
+        run: docker build -t dockerforaravinda/nodejs-app .
       - name: Publish image to docker hub
-        run: docker push integrationninjas/nodejs-app:latest
+        run: docker push dockerforaravinda/nodejs-app:latest
         
   deploy:
     needs: build
     runs-on: [aws-ec2]
     steps:
       - name: Pull image from docker hub
-        run: docker pull integrationninjas/nodejs-app:latest
+        run: docker pull dockerforaravinda/nodejs-app:latest
       - name: Delete old container
         run: docker rm -f nodejs-app-container
       - name: Run docker container
