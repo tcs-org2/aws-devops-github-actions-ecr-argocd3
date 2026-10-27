@@ -35,9 +35,9 @@
            role-to-assume: arn:aws:iam::180789647333:role/github-actions-oidc-role-ui3
            aws-region: ${{ env.AWS_REGION }}
 
-#       - name: Login to Amazon ECR
-#         id: login-ecr
-#         uses: aws-actions/amazon-ecr-login@v2
+       - name: Login to Amazon ECR
+         id: login-ecr
+         uses: aws-actions/amazon-ecr-login@v2
 
 #       - name: Define image tags
 #         id: vars
