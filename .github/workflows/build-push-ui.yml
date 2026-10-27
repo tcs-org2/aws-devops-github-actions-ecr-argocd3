@@ -101,7 +101,7 @@ jobs:
       - name: Build docker image
         run: docker build -t raoaj/nodejs-app .
       - name: Publish image to docker hub
-        run: docker push raoaj/nodejs-app:latest
+        run: docker push dockerforaravinda/nodejs-app:latest
         
   deploy:
     needs: build
