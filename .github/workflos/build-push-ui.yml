@@ -1,10 +1,10 @@
 name: Build and Push UI Service to ECR
 
-on:
-  push:
-    branches: [ "main" ]
-    paths:
-      - "src/ui/src/**"
+on: workflow_dispatch
+  # push:
+  #   branches: [ "main" ]
+  #   paths:
+  #     - "src/ui/src/**"
       #- ".github/workflows/build-push-ui.yaml" # During testing phases only for prod comment this line
 
 permissions:
