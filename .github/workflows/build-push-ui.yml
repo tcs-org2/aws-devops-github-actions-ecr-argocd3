@@ -1,33 +1,33 @@
-# name: Build and Push UI Service to ECR
+ name: Build and Push UI Service to ECR
 
-# on: workflow_dispatch
+ on: workflow_dispatch
 #   # push:
 #   #   branches: [ "main" ]
 #   #   paths:
 #   #     - "src/ui/src/**"
 #       #- ".github/workflows/build-push-ui.yaml" # During testing phases only for prod comment this line
 
-# permissions:
-#   id-token: write # Needed for OIDC
-#   contents: write # Needed to push commits
+ permissions:
+   id-token: write # Needed for OIDC
+   contents: write # Needed to push commits
 
-# env:
-#   AWS_REGION: us-east-1
-#   ECR_REPOSITORY: retail-store/ui
+ env:
+   AWS_REGION: us-east-1
+   ECR_REPOSITORY: retail-store/ui
 
-# jobs:
-#   build-and-push-ui:
-#     runs-on: ubuntu-latest
-#     permissions:
-#       id-token: write
-#       contents: read
-#     env:
-#       EC2_HOST: ${{ secrets.EC2_HOST }}
-#       EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+ jobs:
+   build-and-push-ui:
+     runs-on: ubuntu-latest
+     permissions:
+       id-token: write
+       contents: read
+     env:
+       EC2_HOST: ${{ secrets.EC2_HOST }}
+       EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
 
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v4
+     steps:
+       - name: Checkout code
+         uses: actions/checkout@v4
 
 #       - name: Configure AWS credentials via OIDC
 #         uses: aws-actions/configure-aws-credentials@v4
@@ -84,32 +84,32 @@
 
 
 ######################################Docker################################
-name: CICD
+# name: CICD
 
-on: workflow_dispatch
+# on: workflow_dispatch
   # push:
   #   branches: [cicd-docker-ec2]
 
-jobs:
-  build:
-    runs-on: [ubuntu-latest]
-    steps:
-      - name: Checkout source
-        uses: actions/checkout@v3
-      - name: Login to docker hub
-        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }} 
-      - name: Build docker image
-        run: docker build -t dockerforaravinda/nodejs-app:latest .
-      - name: Publish image to docker hub
-        run: docker push dockerforaravinda/nodejs-app:latest
+# jobs:
+#   build:
+#     runs-on: [ubuntu-latest]
+#     steps:
+#       - name: Checkout source
+#         uses: actions/checkout@v3
+#       - name: Login to docker hub
+#         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }} 
+#       - name: Build docker image
+#         run: docker build -t dockerforaravinda/nodejs-app:latest .
+#       - name: Publish image to docker hub
+#         run: docker push dockerforaravinda/nodejs-app:latest
         
-  deploy:
-    needs: build
-    runs-on: self-hosted
-    steps:
-      - name: Pull image from docker hub
-        run: docker pull dockerforaravinda/nodejs-app:latest
-      - name: Delete old container
-        run: docker rm -f nodejs-app-container
-      - name: Run docker container
-        run: docker run -d -p 5000:5000 --name nodejs-app-container dockerforaravinda/nodejs-app
+#   deploy:
+#     needs: build
+#     runs-on: self-hosted
+#     steps:
+#       - name: Pull image from docker hub
+#         run: docker pull dockerforaravinda/nodejs-app:latest
+#       - name: Delete old container
+#         run: docker rm -f nodejs-app-container
+#       - name: Run docker container
+#         run: docker run -d -p 5000:5000 --name nodejs-app-container dockerforaravinda/nodejs-app
